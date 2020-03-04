@@ -3,6 +3,7 @@ add_library(Graph Graph.cpp)
 add_library(Parallel Parallel.cpp)
 add_library(Purify Purify.cpp)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 add_executable(main main.cpp)
 target_link_libraries(main Parallel Graph Purify)

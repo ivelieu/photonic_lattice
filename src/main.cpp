@@ -5,6 +5,7 @@
 #include <sstream>
 #include <ctime>
 #include <chrono>
+#include <random>
 
 //global rng: (Todo: needs to be threadsafe)
 std::mt19937_64 rng;

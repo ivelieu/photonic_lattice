@@ -3,6 +3,7 @@
 #include <Parallel.hpp>
 #include <Purify.hpp>
 #include <gtest/gtest.h>
+#include <random>
 
 std::mt19937_64 rng;
 
