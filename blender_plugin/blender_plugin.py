@@ -42,7 +42,7 @@ class GraphState(bpy.types.Operator):
         bpy.ops.object.select_all(action='DESELECT')
 
         #create sphere stencil
-        bpy.ops.mesh.primitive_uv_sphere_add(segments = 3, ring_count=2, size=0.2,location = [-1,-1,0])
+        bpy.ops.mesh.primitive_uv_sphere_add(segments = 3, ring_count=2, radius=0.2,location = [-1,-1,0])
         bpy.ops.object.shade_smooth()
         sphere = bpy.context.object
 
@@ -59,7 +59,9 @@ class GraphState(bpy.types.Operator):
         for node in lattice["nodes"]:
             ob = sphere.copy()
             ob.location = lattice["nodes"][node]
-            bpy.context.scene.objects.link(ob)
+            # update bpy.context.scene.objects.link(object)
+            # to bpy.context.collection.objects.link(object)
+            bpy.context.collection.objects.link(ob)
             # only make a fraction visible at the same time
             #cur_layer = (cur_layer+1)%maxlayers
             #ob.layers = [ i==cur_layer for i in range(len(ob.layers)) ]
@@ -96,14 +98,15 @@ class GraphState(bpy.types.Operator):
             ob.scale[2] = magnitude
             ob.rotation_axis_angle[0] = angle
             ob.rotation_axis_angle[1:] = Vrot
-            bpy.context.scene.objects.link(ob)
+            # same fix as for nodes - update this
+            bpy.context.collection.objects.link(ob)
         
         bpy.ops.object.select_all(action="DESELECT")    
         bpy.ops.object.select_pattern(pattern="Cylinder")
         bpy.ops.object.select_pattern(pattern="Sphere")
         bpy.ops.object.delete()
-
-        bpy.context.scene.update()
+        # this command is now redundant
+        # bpy.context.scene.update()
         return {'FINISHED'}
 
 
