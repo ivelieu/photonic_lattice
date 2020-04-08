@@ -98,7 +98,7 @@ void Parallel::find_structures(){
 	for (size_type b = 0; b<_box_lattice.get_x()*_box_lattice.get_y()*_box_lattice.get_z(); ++b){
 		if(_box_lattice.is_proper_node(b)){
 			direction dir = _box_lattice.get_orientation(b);
-			_boxes.at(b).find_structure(dir, b);
+			_boxes.at(b).find_structure(dir, b); // expects parallel
 		}
 	}
 	return;
@@ -109,7 +109,7 @@ void Parallel::path_finding(){
 	const uint iterations = _boxes.at(0).get_max_id();
 	//for each box find a path
 	for (size_type b = 0; b < _box_lattice.get_x()*_box_lattice.get_y()*_box_lattice.get_z(); ++b){
-		//only if not yet done
+		//only if not yet done AND is not proper node
 		if (_boxes.at(b).isPurified() || !_box_lattice.is_proper_node(b))
 		{
 			continue;
@@ -135,7 +135,7 @@ void Parallel::path_finding(){
 				continue;
 			}
 
-			//get handles
+                //get handles
 			position pos0({b, _boxes.at(b).get_structure()});
 
 			if (!_boxes.at(b).handle_dir_exists(pos0.second, dir)){

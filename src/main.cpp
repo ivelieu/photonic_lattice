@@ -49,12 +49,12 @@ int main(int argc, char *argv[])
 	// generate the individual boxes
 	Parallel newsimulation(Nbox, Nbox, 3, boxsize);
 
-	//std::cout << "set up interface" << std::endl;
+	std::cout << "set up interface" << std::endl;
 
 	//generate errors with probability 
 	newsimulation.gen_lattice(probab);
 
-	//std::cout << "generated lattice" <<std::endl;
+	std::cout << "generated lattice" <<std::endl;
 
 	auto begin = std::chrono::high_resolution_clock::now();
 	//now loop through boxes and find viable structure positions
@@ -70,11 +70,11 @@ int main(int argc, char *argv[])
 
 	newsimulation.statistics_output(boxsize, probab);
 
-	//writeout of complete lattice (large filesize for larger lattices)
-	//newsimulation.writeout_graph("graph.json");
+    //writeout of complete lattice (large filesize for larger lattices)
+	newsimulation.writeout_graph("graph.json");
 
 	//writeout of paths (also large file size)
-	//newsimulation.writeout_ymeasure("ymeasure.json");
+	newsimulation.writeout_ymeasure("ymeasure.json");
 
 	//newsimulation.length_output();
 	return 0;
